@@ -44,16 +44,24 @@ public class minerScript : MonoBehaviour {
     }
     void OnCollisionStay2D(Collision2D collisionInfo)
     {
-        //print(true);
 
-        if (collisionInfo.gameObject.layer == 8)
+ 
+        if (collisionInfo.collider.name == "verticalCollider")
         {
-            //print(Input.GetAxis("Vertical"));
-            if (Input.GetAxis("Vertical") > .5 || Input.GetAxis("Vertical") < -.5)
+            
+            if (Input.GetAxis("Vertical") > .9 || Input.GetAxis("Vertical") < -.9 )
             {
-                collisionInfo.gameObject.BroadcastMessage("Digging");
+                collisionInfo.gameObject.SendMessageUpwards("Digging");
             }
 
+        }
+        else if(collisionInfo.collider.name == "HorizontalCollider")
+        {
+
+            if (Input.GetAxis("Horizontal") > .9 || Input.GetAxis("Horizontal") < -.9)
+            {
+                collisionInfo.gameObject.SendMessageUpwards("Digging");
+            }
         }
     }
 

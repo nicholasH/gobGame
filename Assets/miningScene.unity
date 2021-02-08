@@ -143,8 +143,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundObject: {fileID: 6425538839330826088, guid: 3d5c3410f42f95b46a263df114f42547,
     type: 3}
-  cameraVeiwX: 10
-  cameraVeiwY: 0
+  cameraVeiwX: 32
+  cameraVeiwY: 32
 --- !u!4 &299902374
 Transform:
   m_ObjectHideFlags: 0
@@ -210,7 +210,7 @@ PrefabInstance:
     - target: {fileID: 8965877317337875996, guid: df2967f6201586e49a1044d20ffcc6a9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8965877317337875996, guid: df2967f6201586e49a1044d20ffcc6a9,
         type: 3}
@@ -261,6 +261,11 @@ PrefabInstance:
         type: 3}
       propertyPath: digFramCountDown
       value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965877317256304773, guid: df2967f6201586e49a1044d20ffcc6a9,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df2967f6201586e49a1044d20ffcc6a9, type: 3}

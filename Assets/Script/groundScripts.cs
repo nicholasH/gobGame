@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using utility;
+
 
 public class groundScripts : MonoBehaviour {
 
@@ -10,7 +12,13 @@ public class groundScripts : MonoBehaviour {
     private int x;
     private int y;
 
-    public string groundType;
+    //TODO: add this as a list 
+    public Material dirtMaterial;
+    public Material rockMaterial;
+    public Material copperMaterial;
+    public Material gobemMaterial;
+
+    public utility.utility.groundTypeEnum groundType;
 
     public float healthModifider;
     private float totalHealth;
@@ -20,10 +28,10 @@ public class groundScripts : MonoBehaviour {
 
     private int blockResist;
 
-    private
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         totalHealth = health * healthModifider;
 
         groundColleder = GetComponent<Collider2D>();
@@ -36,11 +44,15 @@ public class groundScripts : MonoBehaviour {
 
     }
 
-    public void Spawn(int x, int y)
+    public void Spawn(int x, int y, int ground )
     {
         this.x = x;
         this.y = y;
         Instantiate(this, new Vector2(x, y), transform.rotation);
+        this.groundType = (utility.utility.groundTypeEnum) ground;
+
+        updateColor(groundType);
+
     }
 
     public void Digging()
@@ -48,17 +60,10 @@ public class groundScripts : MonoBehaviour {
         if(totalHealth <= 0)
         {
             Destroy(gameObject);
-            blockResist = 10;
         }
         else if (totalHealth > 0){
-            if(blockResist <= 0)
-            {
-                totalHealth = totalHealth - 1;
-            }
-            else
-            {
-                blockResist--;
-            }
+
+            totalHealth = totalHealth - 1;
 
             if (!particalSys.isPlaying)
             {
@@ -67,12 +72,12 @@ public class groundScripts : MonoBehaviour {
 
                 particalSys.Play();
             }
-                
-
 
         }
 
     }
+
+
     void DestroySelf(){
         Destroy(gameObject);
     }
@@ -86,5 +91,34 @@ public class groundScripts : MonoBehaviour {
     {
         
 
+    }
+
+    private void updateColor(utility.utility.groundTypeEnum type)
+    {
+        SpriteRenderer groundSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
+        ParticleSystemRenderer groundParticleSystemRenderer = gameObject.GetComponentInChildren<ParticleSystemRenderer>();
+
+
+        switch (type)
+        {
+            case utility.utility.groundTypeEnum.dirt:
+                groundSpriteRenderer.material = dirtMaterial;
+                groundParticleSystemRenderer.material = dirtMaterial;
+                break;
+            case utility.utility.groundTypeEnum.rock:
+                groundSpriteRenderer.material = rockMaterial;
+                groundParticleSystemRenderer.material = rockMaterial;
+                break;
+            case utility.utility.groundTypeEnum.copper:
+                groundSpriteRenderer.material = copperMaterial;
+                groundParticleSystemRenderer.material = copperMaterial;
+                break;
+            case utility.utility.groundTypeEnum.golbum:
+                groundSpriteRenderer.material = gobemMaterial;
+                groundParticleSystemRenderer.material = gobemMaterial;
+                break;
+
+
+        }
     }
 }
